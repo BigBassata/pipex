@@ -6,21 +6,21 @@
 /*   By: licohen <licohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 19:06:49 by licohen           #+#    #+#             */
-/*   Updated: 2024/09/11 19:08:44 by licohen          ###   ########.fr       */
+/*   Updated: 2024/09/11 22:52:23 by licohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void ft_free(char **str)
+void	ft_free(char **str)
 {
-    int i;
-    
-    i = 0;
-    while (str[i])
-    {
-        free(str[i]);
-        i++;
-    }
-    free(str);
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		free(str[i]);
+		i++;
+	}
+	free(str);
 }

@@ -6,20 +6,20 @@
 /*   By: licohen <licohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 16:08:06 by licohen           #+#    #+#             */
-/*   Updated: 2024/09/11 19:07:42 by licohen          ###   ########.fr       */
+/*   Updated: 2024/09/11 22:51:59 by licohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# include "limits.h"
+# include <fcntl.h>
 # include <limits.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
-# include <fcntl.h>
-# include "limits.h"
 # define BUFFER_SIZE 2048
 
 int					ft_atoi(const char *nptr);
@@ -42,7 +42,7 @@ void				ft_putnbr_fd(int n, int fd);
 void				ft_putstr_fd(char *s, int fd);
 char				**ft_split(char const *s, char c);
 char				*ft_strchr(const char *s, int c);
-char 				*ft_strcpy(char *dst, const char *src);
+char				*ft_strcpy(char *dst, const char *src);
 char				*ft_strdup(const char *s);
 void				ft_striteri(char *s, void (*f)(unsigned int, char *));
 char				*ft_strjoin(char const *s1, char const *s2);
@@ -62,8 +62,8 @@ long long			ft_atoll(const char *nptr);
 void				ft_free_split(char **split);
 void				ft_error(char *str);
 void				ft_perror(char *str);
-int 				get_next_line(int fd, char **line);
-void 				ft_free(char **str);
+int					get_next_line(int fd, char **line);
+void				ft_free(char **str);
 
 typedef struct s_list
 {
@@ -81,7 +81,5 @@ t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 						void (*del)(void *));
 t_list				*ft_lstnew(void *content);
 int					ft_lstsize(t_list *lst);
-
-
 
 #endif

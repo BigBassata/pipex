@@ -6,12 +6,11 @@
 /*   By: licohen <licohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 20:35:33 by licohen           #+#    #+#             */
-/*   Updated: 2024/09/11 22:48:24 by licohen          ###   ########.fr       */
+/*   Updated: 2024/09/11 22:55:35 by licohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
-
 
 void	executer(char *cmd, char **envp)
 {
@@ -41,7 +40,7 @@ void	executer(char *cmd, char **envp)
 	ft_perror("ERROR");
 }
 
-void	first_command_executing(int *fd, char **argv, char **envp)
+void	first_command(int *fd, char **argv, char **envp)
 {
 	int	f_in;
 
@@ -58,7 +57,7 @@ void	first_command_executing(int *fd, char **argv, char **envp)
 	executer(argv[2], envp);
 }
 
-void	second_command_executing(int *fd, char **argv, char **envp)
+void	second_command(int *fd, char **argv, char **envp)
 {
 	int	f_out;
 
@@ -89,20 +88,20 @@ void	pipex(int argc, char **argv, char **envp)
 	if (pid1 == -1)
 		ft_perror("ERROR");
 	if (pid1 == 0)
-		first_command_executing(fd, argv, envp);
+		first_command(fd, argv, envp);
 	pid2 = fork();
 	if (pid2 == -1)
 		ft_perror("ERROR");
 	if (pid2 == 0)
-		second_command_executing(fd, argv, envp);
+		second_command(fd, argv, envp);
 	close(fd[0]);
 	close(fd[1]);
 	waitpid(pid1, NULL, 0);
 	waitpid(pid2, NULL, 0);
 }
 
-int main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
-    pipex(argc, argv, envp);
-    return (0);
+	pipex(argc, argv, envp);
+	return (0);
 }

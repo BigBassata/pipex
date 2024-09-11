@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_get_next_line.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: licohen <licohen@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/11 22:53:44 by licohen           #+#    #+#             */
+/*   Updated: 2024/09/11 22:55:16 by licohen          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 static char	*ft_new_line_checker(char *s)
@@ -63,10 +75,10 @@ static char	*ft_sump_checker(char **sump, char **line)
 
 int	get_next_line(int fd, char **line)
 {
-	static char *sump;
-	char *buf;
-	char *p_nline;
-	int qbr;
+	static char	*sump;
+	char		*buf;
+	char		*p_nline;
+	int			qbr;
 
 	p_nline = NULL;
 	qbr = 1;
