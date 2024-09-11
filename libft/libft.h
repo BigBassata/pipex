@@ -6,7 +6,7 @@
 /*   By: licohen <licohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 16:08:06 by licohen           #+#    #+#             */
-/*   Updated: 2024/09/10 17:38:07 by licohen          ###   ########.fr       */
+/*   Updated: 2024/09/11 19:07:42 by licohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void				ft_free_split(char **split);
 void				ft_error(char *str);
 void				ft_perror(char *str);
 int 				get_next_line(int fd, char **line);
+void 				ft_free(char **str);
 
 typedef struct s_list
 {

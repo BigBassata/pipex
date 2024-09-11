@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_perror.c                                        :+:      :+:    :+:   */
+/*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: licohen <licohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/10 17:22:24 by licohen           #+#    #+#             */
-/*   Updated: 2024/09/11 19:02:39 by licohen          ###   ########.fr       */
+/*   Created: 2024/09/11 19:06:49 by licohen           #+#    #+#             */
+/*   Updated: 2024/09/11 19:08:44 by licohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-// void	ft_perror(char *str)
-// {
-// 	perror(str);
-// 	exit(EXIT_FAILURE);
-// }
-
-void ft_perror(char *msg)
+void ft_free(char **str)
 {
-    perror(msg);
-    exit(EXIT_FAILURE);
+    int i;
+    
+    i = 0;
+    while (str[i])
+    {
+        free(str[i]);
+        i++;
+    }
+    free(str);
 }
