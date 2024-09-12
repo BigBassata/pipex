@@ -6,7 +6,7 @@
 /*   By: licohen <licohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 20:35:33 by licohen           #+#    #+#             */
-/*   Updated: 2024/09/11 22:55:35 by licohen          ###   ########.fr       */
+/*   Updated: 2024/09/12 19:41:45 by licohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,18 @@ void	executer(char *cmd, char **envp)
 	char	**path;
 	char	*way;
 
+	if (cmd == NULL)
+	{
+		ft_error("Error: no command");
+		return ;
+	}
 	command = ft_split(cmd, ' ');
+	if (command == NULL || command[0] == NULL || *command[0] == '\0')
+	{
+		ft_free(command);
+		ft_error("Error: empty command");
+		return ;
+	}
 	path = splitting_paths(envp);
 	if (path == NULL)
 		ft_error("Error: no PATH");
