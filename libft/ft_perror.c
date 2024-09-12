@@ -6,7 +6,7 @@
 /*   By: licohen <licohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 17:22:24 by licohen           #+#    #+#             */
-/*   Updated: 2024/09/11 22:53:03 by licohen          ###   ########.fr       */
+/*   Updated: 2024/09/12 20:44:44 by licohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,5 @@
 void	ft_perror(char *str)
 {
 	perror(str);
-	exit(EXIT_FAILURE);
+	exit(1);
 }
