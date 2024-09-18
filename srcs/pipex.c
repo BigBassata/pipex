@@ -6,22 +6,33 @@
 /*   By: licohen <licohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 20:35:33 by licohen           #+#    #+#             */
-/*   Updated: 2024/09/17 17:49:56 by licohen          ###   ########.fr       */
+/*   Updated: 2024/09/18 14:49:09 by licohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-void	executer(char *cmd, char **envp)
+void	try_execute(char **command, char *path)
 {
-	int		i;
-	char	**command;
-	char	**path;
 	char	*way;
 
+	way = ft_strjoin_mod(path, command[0]);
+	if (access(way, X_OK) == 0)
+	{
+		if (execve(way, command, NULL) == -1)
+			ft_perror("ERROR");
+	}
+	free(way);
+}
+
+void	executer(char *cmd, char **envp)
+{
+	char	**command;
+	char	**path;
+	int		i;
+
 	command = ft_split(cmd, ' ');
-	
-	if(cmd[0] == '/')
+	if (cmd[0] == '/')
 	{
 		if (access(command[0], X_OK) == 0)
 		{
@@ -31,21 +42,11 @@ void	executer(char *cmd, char **envp)
 		ft_perror("ERROR");
 	}
 	path = splitting_paths(envp);
-	
 	if (path == NULL)
 		ft_error("Error: no PATH");
 	i = 0;
 	while (path[i])
-	{
-		way = ft_strjoin_mod(path[i], command[0]);
-		if (access(way, X_OK) == 0)
-		{
-			if (execve(way, command, NULL) == -1)
-				ft_perror("ERROR");
-		}
-		free(way);
-		i++;
-	}
+		try_execute(command, path[i++]);
 	ft_free(command);
 	ft_free(path);
 	ft_perror("ERROR");
@@ -109,10 +110,4 @@ void	pipex(int argc, char **argv, char **envp)
 	close(fd[1]);
 	waitpid(pid1, NULL, 0);
 	waitpid(pid2, NULL, 0);
-}
-
-int	main(int argc, char **argv, char **envp)
-{
-	pipex(argc, argv, envp);
-	return (0);
 }
