@@ -6,7 +6,7 @@
 /*   By: licohen <licohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 20:35:33 by licohen           #+#    #+#             */
-/*   Updated: 2024/09/12 20:52:51 by licohen          ###   ########.fr       */
+/*   Updated: 2024/09/17 17:49:56 by licohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,25 @@ void	executer(char *cmd, char **envp)
 	char	*way;
 
 	command = ft_split(cmd, ' ');
+	
+	if(cmd[0] == '/')
+	{
+		if (access(command[0], X_OK) == 0)
+		{
+			if (execve(command[0], command, NULL) == -1)
+				ft_perror("ERROR");
+		}
+		ft_perror("ERROR");
+	}
 	path = splitting_paths(envp);
+	
 	if (path == NULL)
 		ft_error("Error: no PATH");
 	i = 0;
 	while (path[i])
 	{
 		way = ft_strjoin_mod(path[i], command[0]);
-		if (access(way, F_OK) == 0)
+		if (access(way, X_OK) == 0)
 		{
 			if (execve(way, command, NULL) == -1)
 				ft_perror("ERROR");
@@ -105,4 +116,3 @@ int	main(int argc, char **argv, char **envp)
 	pipex(argc, argv, envp);
 	return (0);
 }
-
