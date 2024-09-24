@@ -6,7 +6,7 @@
 #    By: licohen <licohen@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/02 16:08:00 by licohen           #+#    #+#              #
-#    Updated: 2024/09/11 19:07:03 by licohen          ###   ########.fr        #
+#    Updated: 2024/09/24 16:02:55 by licohen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ NAME = libft.a
 OBJS = $(SRCS:.c=.o)
 OBJSB = $(SRCSB:.c=.o)
 
-CC = gcc
+CC = cc
 CC_FLAGS = -Wall -Wextra -Werror
 
 %.o: %.c

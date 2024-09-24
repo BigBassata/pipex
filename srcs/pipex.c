@@ -6,7 +6,7 @@
 /*   By: licohen <licohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 20:35:33 by licohen           #+#    #+#             */
-/*   Updated: 2024/09/18 14:49:09 by licohen          ###   ########.fr       */
+/*   Updated: 2024/09/24 16:48:25 by licohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,30 +20,18 @@ void	try_execute(char **command, char *path)
 	if (access(way, X_OK) == 0)
 	{
 		if (execve(way, command, NULL) == -1)
+		{
+			ft_free(command);
 			ft_perror("ERROR");
+		}
 	}
 	free(way);
 }
 
-void	executer(char *cmd, char **envp)
+static void	execute_with_path(char **command, char **path)
 {
-	char	**command;
-	char	**path;
-	int		i;
+	int	i;
 
-	command = ft_split(cmd, ' ');
-	if (cmd[0] == '/')
-	{
-		if (access(command[0], X_OK) == 0)
-		{
-			if (execve(command[0], command, NULL) == -1)
-				ft_perror("ERROR");
-		}
-		ft_perror("ERROR");
-	}
-	path = splitting_paths(envp);
-	if (path == NULL)
-		ft_error("Error: no PATH");
 	i = 0;
 	while (path[i])
 		try_execute(command, path[i++]);
@@ -52,15 +40,49 @@ void	executer(char *cmd, char **envp)
 	ft_perror("ERROR");
 }
 
+void	executer(char *cmd, char **envp)
+{
+	char	**command;
+	char	**path;
+
+	command = ft_split(cmd, ' ');
+	if (!command)
+		ft_perror("ERROR");
+	if (cmd[0] == '/' || cmd[0] == '.')
+	{
+		if (access(command[0], X_OK) == 0)
+		{
+			if (execve(command[0], command, NULL) == -1)
+			{
+				ft_free(command);
+				ft_perror("ERROR");
+			}
+		}
+		ft_perror("ERROR");
+	}
+	path = splitting_paths(envp);
+	if (path == NULL)
+		ft_perror("ERROR");
+	execute_with_path(command, path);
+}
+
 void	first_command(int *fd, char **argv, char **envp)
 {
 	int	f_in;
 
 	f_in = open(argv[1], O_RDONLY);
 	if (f_in < 0)
+	{
+		close(fd[0]);
+		close(fd[1]);
 		ft_perror("ERROR");
+		exit(EXIT_FAILURE);
+	}
 	if (dup2(fd[1], STDOUT_FILENO) == -1)
+	{
 		ft_perror("ERROR");
+		exit(EXIT_FAILURE);
+	}
 	if (dup2(f_in, STDIN_FILENO) == -1)
 		ft_perror("ERROR");
 	close(fd[0]);
@@ -91,14 +113,17 @@ void	pipex(int argc, char **argv, char **envp)
 	int	fd[2];
 	int	pid1;
 	int	pid2;
-
-	if (argc != 5)
-		ft_error("Error: wrong nbr of args");
+	
+	(void) argc;
 	if (pipe(fd) == -1)
 		ft_perror("ERROR");
 	pid1 = fork();
 	if (pid1 == -1)
+	{
+		close(fd[0]);
+		close(fd[1]);
 		ft_perror("ERROR");
+	}
 	if (pid1 == 0)
 		first_command(fd, argv, envp);
 	pid2 = fork();

@@ -6,7 +6,7 @@
 /*   By: licohen <licohen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 20:35:41 by licohen           #+#    #+#             */
-/*   Updated: 2024/09/11 22:55:51 by licohen          ###   ########.fr       */
+/*   Updated: 2024/09/24 15:52:44 by licohen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*ft_strjoin_mod(char const *s1, char const *s2)
 
 	if (!s1 || !s2)
 		return (NULL);
-	str = (char *) malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 2));
+	str = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 2));
 	if (!str)
 		return (NULL);
 	i = 0;
@@ -51,4 +51,10 @@ char	*ft_strjoin_mod(char const *s1, char const *s2)
 		str[i++] = s2[j++];
 	str[i] = '\0';
 	return (str);
+}
+
+void	close_fd(int *fd)
+{
+	close(fd[0]);
+	close(fd[1]);
 }

@@ -6,13 +6,13 @@
 #    By: licohen <licohen@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/03 20:35:19 by licohen           #+#    #+#              #
-#    Updated: 2024/09/18 14:49:54 by licohen          ###   ########.fr        #
+#    Updated: 2024/09/24 16:02:59 by licohen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CC = cc
+CFLAGS = -Wall -Wextra -Werror -g3
 LIBFT = libft/libft.a
 SRCS = srcs/pipex.c srcs/utils.c srcs/main.c
 OBJS = $(SRCS:.c=.o)
